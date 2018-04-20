@@ -65,5 +65,27 @@ int32_t main() {
 	bb2->printHex();
 	bb2->printAscii();
 
+    {
+      int32_t v = 10241024;
+	  printf("Big Endian Hex: %i\n", v);
+      auto bb = std::make_unique<ByteBuffer>(30, true);
+      bb->putInt(v);
+      float fv = 1.01;
+      bb->putFloat(fv);
+      double dv = 2.01;
+      bb->putDouble(dv);
+      bb->printHex();
+      printf("deserial: %i %f %f\n", bb->getInt(), bb->getFloat(), bb->getDouble());
+      printf("pre: %i %f %f\n", v, fv, dv);
+
+	  printf("Little Endian Hex: %i\n", v);
+      auto bb_little = std::make_unique<ByteBuffer>(30);
+      bb_little->putInt(v);
+      bb_little->putFloat(fv);
+      bb_little->putDouble(dv);
+      bb_little->printHex();
+
+    }
+
 	return 0;
 }
